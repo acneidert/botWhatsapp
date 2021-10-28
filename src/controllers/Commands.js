@@ -2,7 +2,7 @@ const Command = require('../app/Command');
 const Chat = require('./Chat');
 
 
-// !pagar
+// .example
 new Command({
   command: '.example',
   help: `example`,
