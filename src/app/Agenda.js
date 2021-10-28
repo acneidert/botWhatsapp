@@ -1,23 +1,27 @@
-const Agenda = require("agenda");
+require('dotenv').config();
 
-// const mongoConnectionString = process.env.DATABASE;
+const AgendaDB = require('agenda');
+const log = require('log-beautify');
 
-// const agenda = new Agenda({ db: { address: mongoConnectionString } });
+class Agenda {
+  constructor() {
+    if (!Agenda.instance) {
+      log.debug(`[Agenda]\t Initializaing`);
+      this.__agenda = new AgendaDB({ db: { address: process.env.DATABASE } });
+      Agenda.instance = this;
+    }
+    return Agenda.instance;
+  }
 
-// agenda.on("start", async (job) => {
-//     const { token } = job.attrs.data;
-//     log.info(` [BOT] => Job ${job.attrs.name} starting`);
-//     sendMessage({token, message: 'Okay'});
-// });
+  get() {
+      return this.__agenda;
+  }
+}
 
-// agenda.on("fail:send status", (err, job) => {
-//     console.log(`Job failed with error: ${err.message}`);
-//   });
+const instance = new Agenda();
+Object.freeze(instance);
 
-// agenda.define("send status",(job) => { 
-//     console.log("send status");
-// });
+module.exports = instance;
 
 
-// await agenda.start();
-    // await agenda.every("1 hour", "send status", { token });
+// await agenda.every("1 hour", "send status", { token });

@@ -18,6 +18,9 @@ async function main() {
 
     log.debug(`[index][main]\t Initializaing Commands`)
     require('./src/controllers/Commands');
+
+    log.debug(`[index][main]\t Initializaing Agenda`)
+    require('./src/agenda/index');
 }
 
 main().then(() => {
